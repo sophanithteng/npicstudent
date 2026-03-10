@@ -1,0 +1,147 @@
+/* --- Updated Navbar Container --- */
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 12px 25px;
+    background: var(--card-bg);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1050;
+}
+
+/* --- Search Bar Styling --- */
+.search-wrap {
+    flex: 1; /* Allows the search bar to grow */
+    max-width: 500px; /* Prevents it from being too wide on ultra-wide screens */
+    margin: 0 15px;
+}
+
+.search-input .form-control {
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px 0 0 8px; /* Rounded corners on the left */
+    background: var(--body-bg);
+    color: var(--text-color);
+    padding: 8px 15px;
+}
+
+.search-input .input-group-text {
+    background: #0d6efd; /* Brand blue color */
+    color: white;
+    border: none;
+    border-radius: 0 8px 8px 0; /* Rounded corners on the right */
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.search-input .input-group-text:hover {
+    background: #0b5ed7;
+}
+
+/* --- Branding --- */
+.brand-Emilia {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #0d6efd;
+    letter-spacing: -0.5px;
+}
+
+.brand-Computer {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-left: 4px;
+    opacity: 0.7;
+}
+
+/* --- Theme & Account Buttons --- */
+.theme-toggle {
+    white-space: nowrap;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: var(--body-bg);
+    color: var(--text-color);
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.theme-toggle:hover {
+    background: var(--sk-bg);
+}
+
+/* Dark Mode Adjustments */
+body.dark-mode .search-input .form-control {
+    border-color: #444;
+}
+
+body.dark-mode .search-input .input-group-text {
+    background: #333; /* Subtler color in dark mode */
+}
+
+/* --- 1. Navbar Layout Fix --- */
+.main-nav {
+    display: flex !important; /* Forces flexbox */
+    justify-content: space-between !important; 
+    align-items: center !important;
+    padding: 10px 20px !important;
+    gap: 15px;
+}
+
+/* --- 2. Search Bar Polish --- */
+.search-wrap {
+    flex: 1;
+    max-width: 500px;
+    margin: 0 10px;
+}
+
+.search-input {
+    display: flex !important;
+    width: 100%;
+}
+
+.search-input .form-control {
+    border-radius: 8px 0 0 8px !important;
+    border: 1px solid rgba(0,0,0,0.2);
+    height: 38px;
+}
+
+.search-input .input-group-text {
+    border-radius: 0 8px 8px 0 !important;
+    background-color: #0d6efd !important;
+    color: white !important;
+    border: none;
+    padding: 0 15px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+}
+
+/* --- 3. Dropdown Menu Fix (Removes the dots) --- */
+.dropdown-menu {
+    list-style: none !important; /* This removes the bullets from your 1st image */
+    padding: 8px 0 !important;
+    border: none !important;
+    box-shadow: var(--shadow);
+    background-color: var(--card-bg) !important;
+}
+
+.dropdown-item {
+    color: var(--text-color) !important;
+    padding: 8px 20px !important;
+}
+
+.dropdown-item:hover {
+    background-color: #0d6efd !important;
+    color: #fff !important;
+}
+
+/* --- 4. Responsive Visibility --- */
+@media (max-width: 768px) {
+    .brand-Computer { display: none; } /* Hide sub-brand on mobile */
+    .search-wrap { display: none; } /* Hide search on mobile to prevent crowding */
+}
