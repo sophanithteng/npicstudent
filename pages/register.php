@@ -49,7 +49,7 @@ if (isset($_POST["name"], $_POST["username"], $_POST['passwd'], $_POST['confirmP
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Full Name</label>
                     <input name="name" value="<?php echo htmlspecialchars($name); ?>" type="text"
-                        class="form-control <?php echo empty($nameErr) ? '' : 'is-invalid'; ?>" placeholder="John Doe">
+                        class="form-control <?php echo empty($nameErr) ? '' : 'is-invalid'; ?>" placeholder="Full Name">
                     <div class="invalid-feedback"><?php echo $nameErr; ?></div>
                 </div>
 
@@ -58,7 +58,7 @@ if (isset($_POST["name"], $_POST["username"], $_POST['passwd'], $_POST['confirmP
                     <div class="input-group has-validation">
                         <span class="input-group-text bg-light"><i class="bi bi-at text-muted"></i></span>
                         <input name="username" value="<?php echo htmlspecialchars($username); ?>" type="text"
-                            class="form-control <?php echo empty($usernameErr) ? '' : 'is-invalid'; ?>" placeholder="johndoe123">
+                            class="form-control <?php echo empty($usernameErr) ? '' : 'is-invalid'; ?>" placeholder="UserName">
                         <div class="invalid-feedback"><?php echo $usernameErr; ?></div>
                     </div>
                 </div>

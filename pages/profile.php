@@ -75,7 +75,7 @@ if (isset($_POST['deletepicture'])) {
                         </div>
 
                         <div class="d-grid gap-2 d-md-block">
-                            <button type="submit" class="btn btn-success px-4">Save New Photo</button>
+                            <button type="submit" class="btn btn-success px-4">Upload Picture</button>
 
                             <button type="button" class="btn btn-outline-danger px-4" onclick="confirmDelete(event)">
                                 Delete

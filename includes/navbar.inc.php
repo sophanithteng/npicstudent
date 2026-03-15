@@ -20,25 +20,32 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             
-            <form class="search-wrap d-flex my-2 my-md-0 mx-md-4 flex-grow-1" role="search">
-                <div class="input-group">
-                    <input class="form-control" type="search" placeholder="Search products..." aria-label="Search">
-                    <button class="btn btn-primary" type="button">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </div>
-            </form>
+            <?php if (!empty($user)) { ?>
+                
+                <form class="search-wrap d-flex my-2 my-md-0 mx-md-4 flex-grow-1" role="search">
+                    <div class="input-group">
+                        <input class="form-control" type="search" placeholder="Search products..." aria-label="Search">
+                        <button class="btn btn-primary" type="button">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form>
 
-            <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item"><a class="nav-link active" href="<?php echo $baseUrl ?>?page=dashboard">Home</a></li>
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="<?php echo $baseUrl ?>?page=dashboard">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo $baseUrl ?>?page=professor">Professor</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo $baseUrl ?>?page=student">Student</a></li>
 
-                <?php if (isset($isAdmin) && $isAdmin) { ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="?page=user/list text-primary">User Management</a>
-                    </li>
-                <?php } ?>
+                    <?php if (isAdmin()) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="?page=user/list">User</a>
+                        </li>
+                    <?php } ?>
+            <?php } else { ?>
+                <div class="ms-auto"></div>
+            <?php } ?>
 
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown list-unstyled">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                         Account
                     </a>
@@ -53,7 +60,6 @@
                         <?php } ?>
                     </ul>
                 </li>
-            </ul>
-        </div>
+            </ul> </div>
     </div>
 </nav>

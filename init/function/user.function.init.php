@@ -16,4 +16,12 @@ function createUser($name, $username, $password, $photo)
     }
     return false;
 }
+
+function getUsers(){
+    global $db;
+    $query = $db->prepare('SELECT * FROM tbl_users WHERE level <> "admin"');
+    $query -> execute();
+    $result = $query -> get_result();
+    return $result;
+}
 ?>
