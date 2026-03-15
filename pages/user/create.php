@@ -7,97 +7,139 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $passwd = trim($_POST['passwd'] ?? '');
     
-    // Validation
     if (empty($name)) $nameErr = 'Please input name!';
     if (empty($username)) $usernameErr = 'Please input username!';
     if (empty($passwd)) $passwdErr = 'Please input password!';
     
-    // Check if username exists (logic depends on your function)
-    if (empty($usernameErr) && isset($username) && isUsernameExist($username)) {
-        $usernameErr = 'Username already exists!';
+    if (empty($usernameErr) && isUsernameExist($username)) {
+        $usernameErr = 'Username exists!';
     }
 
     if (empty($nameErr) && empty($usernameErr) && empty($passwdErr)) {
-        // Your Registration Logic Here
+        try {
+            // FIX: Match the 'name' attribute of your file input ("photo")
+            $userPhoto = (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) 
+                         ? $_FILES['photo'] 
+                         : null;
+
+            // FIX: Pass the correct variable ($userPhoto) to the function
+            if (createUser($name, $username, $passwd, $userPhoto)) {
+                $name = $username = $passwd = '';
+                echo '<div class="alert alert-success border-0 shadow-sm mb-4" role="alert">
+                        <i class="bi bi-check-circle-fill me-2"></i> User created successfully!
+                      </div>';
+            } else {
+                echo '<div class="alert alert-danger border-0 shadow-sm mb-4" role="alert">Create failed!</div>';
+            }
+        } catch (Exception $e) {
+            echo '<div class="alert alert-danger border-0 shadow-sm mb-4" role="alert">' . htmlspecialchars($e->getMessage()) . '</div>';
+        }
     }
 }
 ?>
 
-<div class="container py-5">
+<style>
+    .user-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 20px;
+    }
+    .profile-wrapper {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+    }
+    .profile-wrapper img {
+        transition: opacity 0.3s ease;
+    }
+    .profile-wrapper:hover img {
+        opacity: 0.8;
+    }
+    .camera-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #0d6efd;
+        color: white;
+        border: 4px solid var(--bs-body-bg);
+        transition: transform 0.2s ease;
+    }
+    .profile-wrapper:hover .camera-icon {
+        transform: scale(1.1);
+    }
+</style>
+
+<div class="container py-4">
     <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-5">
-            <div class="card border-0 shadow-sm bg-body-tertiary">
-                <div class="card-body p-4 p-md-5">
-                    
+        <div class="col-md-8 col-lg-6">
+            <div class="card user-card border-0 shadow-lg bg-body-tertiary p-4 p-md-5">
+                <div class="text-center mb-4">
+                    <h3 class="fw-bold text-body">New User Account</h3>
+                    <p class="text-muted small">The photo is optional; you can add it later.</p>
+                </div>
+                
+                <form method="post" action="./?page=user/create" enctype="multipart/form-data">
                     <div class="text-center mb-4">
-                        <h3 class="fw-bold text-body">Create Account</h3>
-                        <p class="text-muted small">Fill in the details to register a new user</p>
+                        <div class="profile-wrapper">
+                            <img id="preview" src="./assets/images/emptyuser.png" 
+                                 class="rounded-circle border border-4 border-primary-subtle shadow-sm w-100 h-100" 
+                                 style="object-fit: cover; cursor: pointer;">
+                            
+                            <label for="profileUpload" class="camera-icon rounded-circle position-absolute bottom-0 end-0 cursor-pointer">
+                                <i class="bi bi-camera-fill"></i>
+                            </label>
+                        </div>
+                        <input name="photo" type="file" id="profileUpload" hidden accept="image/*">
                     </div>
 
-                    <form method="post" action="./?page=user/create" enctype="multipart/form-data">
-                        
-                        <div class="d-flex flex-column align-items-center mb-4">
-                            <div class="position-relative">
-                                <img id="imgPreview" src="./assets/images/emptyuser.png"
-                                    class="rounded-circle border border-4 border-primary-subtle shadow-sm" 
-                                    style="width: 130px; height: 130px; object-fit: cover;">
-                                
-                                <label for="profileUpload" class="btn btn-primary btn-sm rounded-circle position-absolute bottom-0 end-0 d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
-                                    <i class="bi bi-camera-fill"></i>
-                                </label>
-                                <input name="photo" type="file" id="profileUpload" hidden accept="image/*">
-                            </div>
-                            <small class="text-muted mt-2">Click icon to upload photo</small>
-                        </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-uppercase tracking-wider">Full Name</label>
+                        <input name="name" value="<?php echo htmlspecialchars($name) ?>" type="text" 
+                               class="form-control form-control-lg bg-body <?php echo empty($nameErr) ? '' : 'is-invalid' ?>"
+                               placeholder="Name">
+                        <div class="invalid-feedback"><?php echo $nameErr ?></div>
+                    </div>
 
-                        <div class="form-floating mb-3">
-                            <input name="name" type="text" 
-                                class="form-control bg-body <?php echo empty($nameErr) ? '' : 'is-invalid' ?>" 
-                                id="floatingName" placeholder="Full Name" value="<?php echo htmlspecialchars($name) ?>">
-                            <label for="floatingName" class="text-secondary">Full Name</label>
-                            <div class="invalid-feedback"><?php echo $nameErr ?></div>
-                        </div>
-
-                        <div class="form-floating mb-3">
-                            <input name="username" type="text" 
-                                class="form-control bg-body <?php echo empty($usernameErr) ? '' : 'is-invalid' ?>" 
-                                id="floatingUser" placeholder="Username" value="<?php echo htmlspecialchars($username) ?>">
-                            <label for="floatingUser" class="text-secondary">Username</label>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-uppercase tracking-wider">Username</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text bg-body border-end-0 text-muted"><i class="bi bi-at"></i></span>
+                            <input name="username" value="<?php echo htmlspecialchars($username) ?>" type="text" 
+                                   class="form-control form-control-lg bg-body border-start-0 <?php echo empty($usernameErr) ? '' : 'is-invalid' ?>"
+                                   placeholder="Username">
                             <div class="invalid-feedback"><?php echo $usernameErr ?></div>
                         </div>
+                    </div>
 
-                        <div class="form-floating mb-4">
-                            <input name="passwd" type="password" 
-                                class="form-control bg-body <?php echo empty($passwdErr) ? '' : 'is-invalid' ?>" 
-                                id="floatingPass" placeholder="Password">
-                            <label for="floatingPass" class="text-secondary">Password</label>
-                            <div class="invalid-feedback"><?php echo $passwdErr ?></div>
-                        </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-bold small text-uppercase tracking-wider">Password</label>
+                        <input name="passwd" type="password" 
+                               class="form-control form-control-lg bg-body <?php echo empty($passwdErr) ? '' : 'is-invalid' ?>"
+                               placeholder="••••••••">
+                        <div class="invalid-feedback"><?php echo $passwdErr ?></div>
+                    </div>
 
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary btn-lg fw-bold shadow-sm">
-                                Create User
-                            </button>
-                        </div>
-
-                        <div class="text-center mt-3">
-                            <a href="./?page=user/list" class="text-decoration-none small text-muted">
-                                <i class="bi bi-arrow-left"></i> Back to User List
-                            </a>
-                        </div>
-                    </form>
-
-                </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg py-3 fw-bold shadow-sm">
+                            Confirm Registration
+                        </button>
+                        <a href="?page=user/list" class="btn btn-link btn-sm text-decoration-none text-muted mt-2">
+                            Cancel and Return
+                        </a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    document.getElementById('profileUpload').onchange = evt => {
-        const [file] = document.getElementById('profileUpload').files
-        if (file) {
-            document.getElementById('imgPreview').src = URL.createObjectURL(file)
-        }
+document.getElementById('profileUpload').onchange = function (evt) {
+    const [file] = this.files;
+    if (file) {
+        document.getElementById('preview').src = URL.createObjectURL(file);
     }
+}
 </script>

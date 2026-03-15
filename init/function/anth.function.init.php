@@ -93,17 +93,22 @@ function changeProfilepicture($picture)
 {
     global $db;
     $user = loggedInUser();
-    $picture_path = uploadpicture($picture);
-    if ($picture_path && $user->profile_pic) {
-        unlink($user->profile_pic);
+
+    try {
+        $picture_path = uploadpicture($picture, $user);
+    } catch (Exception $e) {
+        return false; 
     }
+
+    if ($picture_path && !empty($user->profile_pic) && file_exists($user->profile_pic)) {
+        @unlink($user->profile_pic); 
+    }
+
     $query = $db->prepare('UPDATE tbl_users SET profile_pic = ? WHERE id = ?');
-    $query->bind_param('sd', $picture_path, $user->id);
+    $query->bind_param('si', $picture_path, $user->id); 
     $query->execute();
-    if ($db->affected_rows) {
-        return true;
-    }
-    return false;
+
+    return $db->affected_rows > 0;
 }
 
 function deleteProfilepicture()
@@ -123,32 +128,44 @@ function deleteProfilepicture()
     }
 }
 
-function uploadpicture($picture)
+function uploadpicture($file, $user)
 {
-    $pic_name = $picture['name'];
-    $pic_size = $picture['size'];
-    $tmp_name = $picture['tmp_name'];
-    $error = $picture['error'];
+    $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    $maxSize = 2 * 1024 * 1024; 
 
-    $dir = './assets/images/';
+    $fileType = $file['type'];
+    $fileSize = $file['size'];
+    $fileTmpName = $file['tmp_name'];
+    $fileError = $file['error'];
 
-    $allow_exs = ['jpg', 'png', 'jpeg'];
-    $picture_ex = pathinfo($pic_name, PATHINFO_EXTENSION);
-    $picture_lowercase_ex = strtolower($picture_ex);
+    // 1. Validate Errors
+    if ($fileError !== 0) {
+        throw new Exception("Upload Error: Code " . $fileError);
+    }
 
-    if (!in_array($picture_lowercase_ex, $allow_exs)) {
-        throw new Exception('File extension is not allowed!');
+    if (!in_array($fileType, $allowedTypes)) {
+        throw new Exception("Invalid file type! Only JPG and PNG are allowed.");
     }
-    if ($error !== 0) {
-        throw new Exception('Unknown error occurred!');
+
+    if ($fileSize > $maxSize) {
+        throw new Exception("File is too large! Maximum size is 2MB.");
     }
-    if ($pic_size > 5242880) {
-        throw new Exception('File size is too large! Maximum allowed is 5MB.');
+
+    $dir = 'assets/images/';
+
+    $fileExt = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+
+    // Create a clean filename using username and unique ID to prevent caching issues
+    $cleanUsername = preg_replace('/[^A-Za-z0-9]/', '', $user->username);
+    $fileNameNew = "profile_" . $cleanUsername . "." . $fileExt;
+    $fileDestination = $dir . $fileNameNew;
+
+    // 3. Move File
+    if (move_uploaded_file($fileTmpName, $fileDestination)) {
+        return $fileDestination; // Return the path to be saved in DB
+    } else {
+        throw new Exception("Failed to move file. Check folder permissions.");
     }
-    $new_picture_name = uniqid("PI-") . '.' . $picture_lowercase_ex;
-    $picture_path = $dir . $new_picture_name;
-    move_uploaded_file($tmp_name, $picture_path);
-    return $picture_path;
 }
 
 function isAdmin()
