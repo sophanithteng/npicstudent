@@ -1,4 +1,3 @@
-/* --- Updated Navbar Container --- */
 .main-nav {
     display: flex;
     justify-content: space-between;
@@ -12,26 +11,25 @@
     z-index: 1050;
 }
 
-/* --- Search Bar Styling --- */
 .search-wrap {
-    flex: 1; /* Allows the search bar to grow */
-    max-width: 500px; /* Prevents it from being too wide on ultra-wide screens */
+    flex: 1; 
+    max-width: 500px; 
     margin: 0 15px;
 }
 
 .search-input .form-control {
     border: 1px solid rgba(0,0,0,0.1);
-    border-radius: 8px 0 0 8px; /* Rounded corners on the left */
+    border-radius: 8px 0 0 8px;
     background: var(--body-bg);
     color: var(--text-color);
     padding: 8px 15px;
 }
 
 .search-input .input-group-text {
-    background: #0d6efd; /* Brand blue color */
+    background: #0d6efd; 
     color: white;
     border: none;
-    border-radius: 0 8px 8px 0; /* Rounded corners on the right */
+    border-radius: 0 8px 8px 0; 
     cursor: pointer;
     font-size: 0.85rem;
     font-weight: 600;
@@ -42,7 +40,6 @@
     background: #0b5ed7;
 }
 
-/* --- Branding --- */
 .brand-Emilia {
     font-size: 1.4rem;
     font-weight: 800;
@@ -58,7 +55,6 @@
     opacity: 0.7;
 }
 
-/* --- Theme & Account Buttons --- */
 .theme-toggle {
     white-space: nowrap;
     border: 1px solid rgba(0,0,0,0.1);
@@ -74,25 +70,22 @@
     background: var(--sk-bg);
 }
 
-/* Dark Mode Adjustments */
 body.dark-mode .search-input .form-control {
     border-color: #444;
 }
 
 body.dark-mode .search-input .input-group-text {
-    background: #333; /* Subtler color in dark mode */
+    background: #333; 
 }
 
-/* --- 1. Navbar Layout Fix --- */
 .main-nav {
-    display: flex !important; /* Forces flexbox */
+    display: flex !important; 
     justify-content: space-between !important; 
     align-items: center !important;
     padding: 10px 20px !important;
     gap: 15px;
 }
 
-/* --- 2. Search Bar Polish --- */
 .search-wrap {
     flex: 1;
     max-width: 500px;
@@ -121,9 +114,8 @@ body.dark-mode .search-input .input-group-text {
     align-items: center;
 }
 
-/* --- 3. Dropdown Menu Fix (Removes the dots) --- */
 .dropdown-menu {
-    list-style: none !important; /* This removes the bullets from your 1st image */
+    list-style: none !important;
     padding: 8px 0 !important;
     border: none !important;
     box-shadow: var(--shadow);
@@ -140,8 +132,7 @@ body.dark-mode .search-input .input-group-text {
     color: #fff !important;
 }
 
-/* --- 4. Responsive Visibility --- */
 @media (max-width: 768px) {
-    .brand-Computer { display: none; } /* Hide sub-brand on mobile */
-    .search-wrap { display: none; } /* Hide search on mobile to prevent crowding */
+    .brand-Computer { display: none; }
+    .search-wrap { display: none; }
 }

@@ -57,7 +57,6 @@ function loggedInUser()
     return false;
 }
 
-
 function isUserHasPassword($passwd)
 {
     global $db;
@@ -155,14 +154,12 @@ function uploadpicture($file, $user)
 
     $fileExt = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
 
-    // Create a clean filename using username and unique ID to prevent caching issues
     $cleanUsername = preg_replace('/[^A-Za-z0-9]/', '', $user->username);
     $fileNameNew = "profile_" . $cleanUsername . "." . $fileExt;
     $fileDestination = $dir . $fileNameNew;
 
-    // 3. Move File
     if (move_uploaded_file($fileTmpName, $fileDestination)) {
-        return $fileDestination; // Return the path to be saved in DB
+        return $fileDestination; 
     } else {
         throw new Exception("Failed to move file. Check folder permissions.");
     }
