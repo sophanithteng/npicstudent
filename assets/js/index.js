@@ -72,19 +72,29 @@ async function loadDashboardContent() {
         }
     }
 
-    // 3. Inject Products
     if (productContainer) {
-        productContainer.innerHTML = '';
-        for (let i = 1; i <= 6; i++) {
-            productContainer.innerHTML += `
-                <div class="skeleton-card">
-                    <img src="https://picsum.photos/seed/${i + 10}/400/300" alt="Product" style="width:100%; border-radius:8px;">
-                    <h3>Product Item ${i}</h3>
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
-                        <span style="font-weight:bold; color:#28a745;">$${(i * 12.5).toFixed(2)}</span>
-                        <button class="btn btn-sm btn-primary">Add</button>
+        const categories = [
+            { img: "assets/images/electrical_icon.png", text: "វិស្វកម្មអគ្គិសនី", link: "?page=electrical" },
+            { img: "assets/images/computer_science_icon.png", text: "វិទ្យាសាស្ត្រកុំព្យូទ័រ", link: "?page=cs", highlight: true },
+            { img: "assets/images/mechanical_icon.png", text: "វិស្វកម្មមេកានិក", link: "?page=mechanical" },
+            { img: "assets/images/optics_icon.png", text: "វិទ្យាសាស្ត្រអុបទិក", link: "?page=optics" },
+            { img: "assets/images/civil_icon.png", text: "វិស្វកម្មសំណង់...", link: "?page=civil" },
+            { img: "assets/images/electronics_icon.png", text: "វិស្វកម្មអេឡិចត្រូនិក...", link: "?page=electronics" },
+            { img: "assets/images/automotive_icon.png", text: "វិស្វកម្មមេកានិករថយន្ត", link: "?page=automotive" },
+            { img: "assets/images/tourism_icon.png", text: "ទេសចរណ៍...", link: "?page=tourism" }
+        ];
+
+        productContainer.innerHTML = `
+        <div class="card-grid">
+            ${categories.map(cat => `
+                <a href="${cat.link}" class="card-link">
+                    <div class="card">
+                        <img src="${cat.img}" alt="${cat.text}">
+                        <p class="${cat.highlight ? 'highlight' : ''}">${cat.text}</p>
                     </div>
-                </div>`;
-        }
+                </a>
+            `).join('')}
+        </div>
+    `;
     }
 }

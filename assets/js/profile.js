@@ -1,14 +1,6 @@
 // --- 1. PREVIEW LOGIC ---
 const profileInput = document.getElementById("profileUpload");
 
-// This IF statement is the most important part! 
-// It tells the browser: "If you don't find the button, don't crash."
-if (profileInput) {
-    profileInput.addEventListener("change", function (e) {
-        // ... the rest of your existing code ...
-    });
-}
-
 // ONLY run this if the element exists (prevents crashing on Dashboard)
 if (profileInput) {
     profileInput.addEventListener("change", function (e) {
