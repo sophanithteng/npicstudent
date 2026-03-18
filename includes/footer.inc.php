@@ -3,6 +3,7 @@
 <script src="assets/js/profile.js"></script>
 <script src="assets/js/carousel.js"></script>
 <script src="assets/js/index.js"></script>
+<script src="assets/js/list.js"></script>
 </body>
 
 </html>
