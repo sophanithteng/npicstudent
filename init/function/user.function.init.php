@@ -30,7 +30,7 @@ function deleteUser($id)
 {
     global $db;
     $query = $db->prepare('SELECT profile_pic FROM tbl_users WHERE id = ?');
-    $query->bind_param('i', $id); // 'i' for integer
+    $query->bind_param('i', $id);
     $query->execute();
     $result = $query->get_result();
     $userData = $result->fetch_object();
@@ -73,13 +73,13 @@ function editUser($id, $data, $file = null)
     }
 
     if (isset($data['profile_pic'])) {
-        $sql = "UPDATE tbl_users SET name = ?, email = ?, level = ?, profile_pic = ? WHERE id = ?";
+        $sql = "UPDATE tbl_users SET name = ?, username = ?, level = ?, profile_pic = ? WHERE id = ?";
         $stmt = $db->prepare($sql);
-        $stmt->bind_param("ssssi", $data['name'], $data['email'], $data['level'], $data['profile_pic'], $id);
+        $stmt->bind_param("ssssi", $data['name'], $data['username'], $data['level'], $data['profile_pic'], $id);
     } else {
-        $sql = "UPDATE tbl_users SET name = ?, email = ?, level = ? WHERE id = ?";
+        $sql = "UPDATE tbl_users SET name = ?, username = ?, level = ? WHERE id = ?";
         $stmt = $db->prepare($sql);
-        $stmt->bind_param("sssi", $data['name'], $data['email'], $data['level'], $id);
+        $stmt->bind_param("sssi", $data['name'], $data['username'], $data['level'], $id);
     }
     $stmt->execute();
     return $stmt->affected_rows >= 0;

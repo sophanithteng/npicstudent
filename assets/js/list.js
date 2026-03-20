@@ -1,39 +1,21 @@
-function openEditModal(user) {
-    // Fill the hidden input and visible fields
-    document.getElementById('edit_id').value = user.id;
-    document.getElementById('edit_name').value = user.name;
-    document.getElementById('edit_email').value = user.email || (user.name + "@gmail.com");
-    document.getElementById('edit_level').value = user.level;
+function openEditModal(btn) {
 
-    // Set the image preview
-    const photo = user.profile_pic ? user.profile_pic : './assets/images/emptyuser.png';
-    document.getElementById('edit_preview').src = photo;
+    document.getElementById('edit_id').value = btn.getAttribute('data-id');
+    document.getElementById('edit_name').value = btn.getAttribute('data-name');
+    document.getElementById('edit_username').value = btn.getAttribute('data-username');
+    document.getElementById('edit_level').value = btn.getAttribute('data-level');
 
-    // Show the modal
-    var myModal = new bootstrap.Modal(document.getElementById('editUserModal'));
+    const photo = btn.getAttribute('data-photo');
+    document.getElementById('edit_preview').src = photo ? photo : './assets/images/emptyuser.png';
+
+    const modalElement = document.getElementById('editUserModal');
+    let myModal = bootstrap.Modal.getInstance(modalElement);
+    if (!myModal) {
+        myModal = new bootstrap.Modal(modalElement);
+    }
     myModal.show();
 }
 
-function confirmDelete(id) {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'Cancel',
-        rounded: '20px' // Matches your pill-style UI
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Redirect if user clicks "Yes"
-            window.location.href = "?page=user/list&action=delete&id=" + id;
-        }
-    })
-}
-
-// Preview image before uploading
 function previewImage(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -44,21 +26,18 @@ function previewImage(input) {
     }
 }
 
-// Handle Form Submission with AJAX
-document.getElementById('editUserForm').onsubmit = function (e) {
-    e.preventDefault();
-    let formData = new FormData(this);
-    formData.append('action', 'edit_user');
-
-    fetch('api/user_actions.php', {
-        method: 'POST',
-        body: formData
+function confirmDelete(id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "This user will be permanently removed!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "?page=user/list&action=delete&id=" + id;
+        }
     })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                alert('User Updated!');
-                location.reload();
-            }
-        });
-};
+}

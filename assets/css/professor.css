@@ -1,0 +1,78 @@
+/* ===============================
+GRID (MORE RESPONSIVE + SPACING)
+================================ */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 24px;
+    padding: 10px;
+}
+
+/* ===============================
+CARD HOVER (SMOOTH + PREMIUM)
+================================ */
+.transition-hover {
+    transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border-radius: 14px;
+}
+
+.transition-hover:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Optional glow effect (modern UI) */
+.transition-hover:hover {
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* ===============================
+SKELETON LOADING (SMOOTH SHIMMER)
+================================ */
+.skeleton-pulse {
+    position: relative;
+    overflow: hidden;
+    background: #e0e0e0;
+    border-radius: 8px;
+}
+
+/* Shimmer animation (better than pulse) */
+.skeleton-pulse::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 150%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.6),
+        transparent
+    );
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    100% {
+        left: 100%;
+    }
+}
+
+/* ===============================
+DARK MODE SUPPORT
+================================ */
+body.dark-mode .skeleton-pulse {
+    background: #2a2a2a;
+}
+
+body.dark-mode .skeleton-pulse::before {
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.15),
+        transparent
+    );
+}

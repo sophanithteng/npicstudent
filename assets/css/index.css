@@ -1,17 +1,175 @@
+/* ===============================
+KHMER FONTS
+================================ */
+@import url('https://fonts.googleapis.com/css2?family=Koulen&family=Battambang:wght@300;400;700&display=swap');
+
+@font-face {
+    font-family: 'Khmer OS Moul Light';
+    src: local('Khmer OS Moul Light');
+}
+
+@font-face {
+    font-family: 'Khmer OS Siemreap';
+    src: local('Khmer OS Siemreap');
+}
+
+/* ===============================
+ROOT VARIABLES
+================================ */
 :root {
     --sk-bg: #e0e0e0;
     --sk-highlight: #f5f5f5;
     --card-bg: #ffffff;
     --body-bg: #f8f9fa;
     --text-color: #333333;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
     --gap: 20px;
-    --radius: 12px;
+    --radius: 14px;
     --shimmer-duration: 2s;
+
+    --primary: #4ade80;
 }
 
+/* ===============================
+DARK MODE (FIXED)
+================================ */
+[data-bs-theme="dark"],
+body.dark-mode {
+    --sk-bg: #333333;
+    --sk-highlight: #444444;
+    --card-bg: #1e1e1e;
+    --body-bg: #121212;
+
+    /* ✅ FIXED TEXT COLOR */
+    --text-color: #ffffff;
+
+    --shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* ===============================
+GLOBAL STYLES
+================================ */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Khmer OS Siemreap', 'Battambang', sans-serif;
+    background-color: var(--body-bg) !important;
+    color: var(--text-color) !important;
+    margin: 0;
+    transition: all 0.3s ease;
+}
+
+/* ===============================
+HEADERS
+================================ */
+h1,
+h2,
+h3,
+.navbar-brand,
+.header-title {
+    font-family: 'Khmer OS Moul Light', 'Koulen', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+/* ===============================
+CONTAINER
+================================ */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+/* ===============================
+GRID
+================================ */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--gap);
+}
+
+/* ===============================
+CARDS
+================================ */
+.card,
+.skeleton-card {
+    min-height: 180px;
+    padding: 25px 15px;
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--card-bg);
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    text-align: center;
+
+    color: var(--text-color);
+}
+
+/* FORCE FULL VISIBILITY IN DARK MODE */
+body.dark-mode .card p,
+[data-bs-theme="dark"] .card p {
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+
+/* Also fix any text inside cards */
+body.dark-mode .card *,
+[data-bs-theme="dark"] .card * {
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+
+/* ===============================
+HOVER EFFECT
+================================ */
+.card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* ===============================
+CARD CONTENT
+================================ */
+.card img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.card:hover img {
+    transform: scale(1.1) rotate(2deg);
+}
+
+.card p {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 500;
+
+    /* ✅ FIX TEXT VISIBILITY */
+    color: inherit;
+}
+
+/* ===============================
+CARD GRID
+================================ */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+/* ===============================
+CAROUSEL
+================================ */
 #carousel-root {
-    display: block;
     width: 100%;
     min-height: 350px;
     margin-bottom: 30px;
@@ -21,111 +179,22 @@
     width: 100%;
     overflow: hidden;
     position: relative;
-    border-radius: 12px;
-}
-
-[data-bs-theme="dark"],
-body.dark-mode {
-    --sk-bg: #333333;
-    --sk-highlight: #444444;
-    --card-bg: #1e1e1e;
-    --body-bg: #121212;
-    --text-color: #f5f5f5;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-[data-bs-theme="dark"] #theme-toggle {
-    background-color: #333 !important;
-    color: #fff !important;
-    border-color: #444 !important;
-}
-
-body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background-color: var(--body-bg) !important;
-    color: var(--text-color) !important;
-    margin: 0;
-    transition: background-color 0.3s ease;
-}
-
-body.dark-mode {
-    background-color: #121212 !important;
-    color: #f5f5f5 !important;
-}
-
-body.dark-mode .skeleton-card h3,
-body.dark-mode .skeleton-card h5 {
-    color: #ffffff !important;
-}
-
-body.dark-mode .skeleton-card p {
-    color: #cccccc !important;
-}
-
-body.dark-mode .text-primary,
-body.dark-mode .fw-bold {
-    color: #4ade80 !important;
-}
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 40px auto;
-}
-
-/* 6. GRID & CARDS */
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: var(--gap);
-}
-
-.skeleton-card {
-    background: var(--card-bg) !important;
-    padding: 15px;
     border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    border: 1px solid transparent;
 }
 
-[data-bs-theme="dark"] .skeleton-card {
-    border-color: #333 !important;
+/* Overlay */
+.sk-carousel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+    border-radius: var(--radius);
 }
-
-/* 7. DROPDOWN FIXES */
-.dropdown-menu {
-    list-style: none !important;
-    background-color: var(--card-bg) !important;
-    border: 1px solid rgba(0, 0, 0, 0.1) !important;
-    box-shadow: var(--shadow);
-}
-
-.dropdown-item {
-    color: var(--text-color) !important;
-}
-
-.dropdown-item:hover {
-    background-color: #0d6efd !important;
-    color: white !important;
-}
-
-/* 8. ANIMATIONS */
-.skeleton-pulse {
-    background: linear-gradient(90deg, var(--sk-bg) 0%, var(--sk-highlight) 50%, var(--sk-bg) 100%);
-    background-size: 200% 100%;
-    border-radius: 6px;
-    animation: shimmer var(--shimmer-duration) infinite linear;
-}
-
-/* 9. SKELETON SPECIFIC DIMENSIONS */
 
 .sk-carousel {
     width: 100%;
     height: 500px;
-    background: var(--card-bg); 
+    background: var(--card-bg);
     border-radius: var(--radius);
     display: flex;
     flex-direction: column;
@@ -135,6 +204,97 @@ body.dark-mode .fw-bold {
     position: relative;
 }
 
+/* ===============================
+SKELETON LOADING
+================================ */
+.skeleton-pulse {
+    background: linear-gradient(90deg,
+            var(--sk-bg) 25%,
+            var(--sk-highlight) 50%,
+            var(--sk-bg) 75%);
+    background-size: 200% 100%;
+    animation: shimmer var(--shimmer-duration) infinite linear;
+    border-radius: 6px;
+}
+
+.skeleton-card {
+    animation: fadeIn 0.5s ease;
+}
+
+.skeleton-card.loaded {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+/* ===============================
+SKELETON ELEMENTS
+================================ */
+.sk-image {
+    height: 200px;
+    width: 100%;
+}
+
+.sk-title {
+    height: 20px;
+    width: 70%;
+}
+
+.sk-text {
+    height: 15px;
+    width: 90%;
+}
+
+.sk-text-short {
+    height: 15px;
+    width: 40%;
+}
+
+.sk-carousel-title {
+    height: 35px;
+    width: 40%;
+}
+
+.sk-carousel-text {
+    height: 20px;
+    width: 60%;
+}
+
+/* ===============================
+DROPDOWN
+================================ */
+.dropdown-menu {
+    background-color: var(--card-bg) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    box-shadow: var(--shadow);
+}
+
+.dropdown-item {
+    color: var(--text-color) !important;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: var(--primary) !important;
+    color: #fff !important;
+}
+
+/* ===============================
+BUTTONS
+================================ */
+button,
+.btn {
+    border-radius: 8px;
+    transition: all 0.25s ease;
+}
+
+button:hover,
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+/* ===============================
+ANIMATIONS
+================================ */
 @keyframes shimmer {
     0% {
         background-position: 200% 0;
@@ -145,116 +305,37 @@ body.dark-mode .fw-bold {
     }
 }
 
-/* Carousel Skeleton Title & Text */
-.sk-carousel-title {
-    width: 40%;
-    height: 35px;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.sk-carousel-text {
-    width: 60%;
-    height: 20px;
+@keyframes floatUp {
+    0% {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
-/* Product Card Skeletons */
-.sk-image {
-    width: 100%;
-    height: 200px;
-    border-radius: 8px;
-}
-
-.sk-title {
-    width: 70%;
-    height: 20px;
-}
-
-.sk-text {
-    width: 90%;
-    height: 15px;
-}
-
-.sk-text-short {
-    width: 40%;
-    height: 15px;
-}
-
-/* 8. ANIMATIONS - REFINED */
-.skeleton-pulse {
-    /* Use the variables you defined in :root */
-    background: linear-gradient(90deg,
-            var(--sk-bg) 25%,
-            var(--sk-highlight) 50%,
-            var(--sk-bg) 75%) !important;
-    background-size: 200% 100% !important;
-    animation: shimmer var(--shimmer-duration) infinite linear !important;
-}
-/* 1. SEAMLESS TRANSITION (Skeleton and Real Card match) */
-.skeleton-card, .card {
-    min-height: 180px; /* Adjust based on your preferred height */
-    padding: 25px 15px;
-    border-radius: var(--radius);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    border: 1px solid rgba(128, 128, 128, 0.1);
-}
-
-/* 2. THE CARD GRID (Aligns with your Carousel) */
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    width: 100%;
-    margin: 20px 0;
-}
-
-/* 3. LIGHT/DARK MODE ADAPTATION */
-/* Using your variables for automatic color switching */
 .card {
-    background: var(--card-bg);
-    box-shadow: var(--shadow);
-    color: var(--text-color);
+    animation: floatUp 0.5s ease;
 }
 
-/* Light mode specific tweak if body has .light-mode */
-body.light-mode .card {
-    background: #ffffff;
-    border: 1px solid #eeeeee;
-}
-
-/* Dark mode specific tweak if body has .dark-mode */
-body.dark-mode .card {
-    background: #1e1e1e;
-    border: 1px solid #333333;
-}
-
-/* 4. SKELETON COLORS */
-/* This ensures the shimmer matches the current theme */
-.skeleton-pulse {
-    background: linear-gradient(90deg, 
-        var(--sk-bg) 25%, 
-        var(--sk-highlight) 50%, 
-        var(--sk-bg) 75%) !important;
-    background-size: 200% 100% !important;
-}
-
-/* 5. ICON & TEXT STYLE */
-.card img {
-    width: 80px; /* Matches your preferred larger icon style */
-    height: 80px;
-    object-fit: contain;
-    margin-bottom: 15px;
-}
-
-.card p {
-    margin: 0;
-    font-size: 15px;
-    font-weight: 500;
-}
-
-/* 6. RESPONSIVE DESIGN */
+/* ===============================
+RESPONSIVE
+================================ */
 @media (max-width: 992px) {
     .card-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -265,6 +346,7 @@ body.dark-mode .card {
     .card-grid {
         grid-template-columns: 1fr;
     }
+
     .card img {
         width: 60px;
         height: 60px;
@@ -272,17 +354,13 @@ body.dark-mode .card {
 }
 
 @media (max-width: 767px) {
-
-    /* This makes the navbar wrap so the search bar drops to a new line */
     .navbar>.container-fluid {
         flex-wrap: wrap;
     }
 
     .search-wrap {
         width: 100%;
-        /* Spans full width on mobile */
         order: 3;
-        /* Puts it below the logo and menu button */
         margin-top: 10px;
     }
 }

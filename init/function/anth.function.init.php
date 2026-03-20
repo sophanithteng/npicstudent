@@ -137,7 +137,6 @@ function uploadpicture($file, $user)
     $fileTmpName = $file['tmp_name'];
     $fileError = $file['error'];
 
-    // 1. Validate Errors
     if ($fileError !== 0) {
         throw new Exception("Upload Error: Code " . $fileError);
     }
@@ -152,11 +151,20 @@ function uploadpicture($file, $user)
 
     $dir = 'assets/images/';
 
-    $fileExt = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    if (is_object($user) && isset($user->username)) {
+        $usernameString = $user->username;
+    } else {
+        $usernameString = (string)$user; 
+    }
 
-    $cleanUsername = preg_replace('/[^A-Za-z0-9]/', '', $user->username);
-    $fileNameNew = "profile_" . $cleanUsername . "." . $fileExt;
+    $fileExt = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    $cleanUsername = preg_replace('/[^A-Za-z0-9]/', '', $usernameString);
+    $fileNameNew = "profile_" . $cleanUsername . "_" . time() . "." . $fileExt; 
     $fileDestination = $dir . $fileNameNew;
+
+    if (!is_dir($dir)) {
+        mkdir($dir, 0755, true);
+    }
 
     if (move_uploaded_file($fileTmpName, $fileDestination)) {
         return $fileDestination; 
