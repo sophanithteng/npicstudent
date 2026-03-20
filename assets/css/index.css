@@ -258,6 +258,83 @@ SKELETON ELEMENTS
     height: 20px;
     width: 60%;
 }
+/*=======================
+    study-hours
+=========================*/
+.study-hours-section {
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.khmer-muol {
+    font-family: 'Khmer OS Muol Light', serif; 
+}
+
+.bi-clock-history::before {
+    content: "🕒"; 
+    font-style: normal;
+}
+
+@media (max-width: 768px) {
+    .study-hours-section .border-end {
+        border-end: none !important;
+        border-bottom: 1px solid #dee2e6;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+    }
+}
+
+/* ===============================
+    scholarship
+================================ */
+
+.icon-circle {
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    font-size: 1.2rem;
+}
+
+.scholarship-section h6 {
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.bg-warning {
+    background-color: #ffb300 !important;
+}
+
+.scholarship-section img {
+    object-fit: cover;
+    max-height: 300px;
+    width: 100%;
+}
+
+/* ===============================
+    This stats counter
+================================ */
+.stat-icon-bg {
+    background-color: #f8f9fa; 
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+}
+
+.stat-item:hover .stat-icon-bg {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.text-warning {
+    color: #f39c12 !important; /* Specific golden/orange from your image */
+}
+
+/* For Dark Mode Support */
+[data-bs-theme="dark"] .stat-icon-bg {
+    background-color: #2b3035;
+}
 
 /* ===============================
 DROPDOWN
@@ -332,6 +409,8 @@ ANIMATIONS
 .card {
     animation: floatUp 0.5s ease;
 }
+
+
 
 /* ===============================
 RESPONSIVE

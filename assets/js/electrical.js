@@ -50,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const params = new URLSearchParams(window.location.search);
     const page = params.get("page");
 
-    // Ensure this matches your URL: ?page=electrical
     if (page === "electrical") {
         loadDashboardContent();
     }
