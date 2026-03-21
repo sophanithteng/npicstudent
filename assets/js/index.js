@@ -15,11 +15,16 @@ document.addEventListener('DOMContentLoaded', () => {
             loadProfessorContent();
         }
     }
-    else if (page === "professor/electrical" || page === "electrical") {
-        if (typeof loadElectricalContent === 'function') {
-            loadElectricalContent();
+    else if (page && page.startsWith("professor/")) {
+        const slug = page.split("/")[1];
+
+        const dep = departments.find(d => d.slug === slug);
+
+        if (dep && typeof loadDepartmentContent === 'function') {
+            loadDepartmentContent(dep.slug, dep.kh, dep.en, dep.id);
         }
     }
+
 
     const toggleBtn = document.getElementById('theme-toggle');
     if (toggleBtn) {
@@ -60,7 +65,7 @@ async function loadDashboardContent() {
         </div>`;
     }
 
-    await new Promise(r => setTimeout(r, 1000)); // Reduced to 1s for better feel
+    await new Promise(r => setTimeout(r, 2000)); // Reduced to 1s for better feel
 
     // Inject Dashboard Content
     if (carouselContainer) {
@@ -79,14 +84,47 @@ async function loadDashboardContent() {
 
     if (productContainer) {
         const categories = [
-            { img: "assets/images/electrical_icon.png", text: "វិស្វកម្មអគ្គិសនី", link: "?page=professor/electrical" },
-            { img: "assets/images/computer_science_icon.png", text: "វិទ្យាសាស្ត្រកុំព្យូទ័រ", link: "?page=cs", highlight: true },
-            { img: "assets/images/mechanical_icon.png", text: "វិស្វកម្មមេកានិក", link: "?page=mechanical" },
-            { img: "assets/images/optics_icon.png", text: "វិទ្យាសាស្ត្រអុបទិក", link: "?page=optics" },
-            { img: "assets/images/civil_icon.png", text: "វិស្វកម្មសំណង់ស៊ីវិលនិងស្ថាបត្យកម្ម", link: "?page=civil" },
-            { img: "assets/images/electronics_icon.png", text: "វិស្វកម្មអេឡិចត្រូនិកនិងទូរគមនាគមន៍", link: "?page=electronics" },
-            { img: "assets/images/automotive_icon.png", text: "វិស្វកម្មមេកានិករថយន្ត", link: "?page=automotive" },
-            { img: "assets/images/tourism_icon.png", text: "ទេសចរណ៍និងបដិសណ្ឋារកិច្ច", link: "?page=tourism" }
+            {
+                img: "assets/images/electrical_icon.png",
+                text: "វិស្វកម្មអគ្គិសនី",
+                link: "?page=professor/electrical"
+            },
+            {
+                img: "assets/images/computer_science_icon.png",
+                text: "វិទ្យាសាស្ត្រកុំព្យូទ័រ",
+                link: "?page=professor/computer-science",
+                highlight: true
+            },
+            {
+                img: "assets/images/mechanical_icon.png",
+                text: "វិស្វកម្មមេកានិក",
+                link: "?page=professor/mechanical"
+            },
+            {
+                img: "assets/images/optics_icon.png",
+                text: "វិទ្យាសាស្ត្រអុបទិក",
+                link: "?page=professor/optical"
+            },
+            {
+                img: "assets/images/civil_icon.png",
+                text: "វិស្វកម្មសំណង់ស៊ីវិលនិងស្ថាបត្យកម្ម",
+                link: "?page=professor/civil-architecture"
+            },
+            {
+                img: "assets/images/electronics_icon.png",
+                text: "វិស្វកម្មអេឡិចត្រូនិកនិងទូរគមនាគមន៍",
+                link: "?page=professor/electronics-telecom"
+            },
+            {
+                img: "assets/images/automotive_icon.png",
+                text: "វិស្វកម្មមេកានិករថយន្ត",
+                link: "?page=professor/automotive"
+            },
+            {
+                img: "assets/images/tourism_icon.png",
+                text: "ទេសចរណ៍និងបដិសណ្ឋារកិច្ច",
+                link: "?page=professor/tourism-hospitality"
+            }
         ];
 
 

@@ -337,6 +337,81 @@ SKELETON ELEMENTS
 }
 
 /* ===============================
+    Footer (Responsive Theme)
+================================ */
+.footer-section {
+    font-size: 0.9rem;
+    background-color: #1a2a40; 
+    color: #ffffff;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+[data-bs-theme="light"] .footer-section {
+    background-color: #f8f9fa !important; 
+    color: #212529 !important; 
+    border-top: 1px solid #dee2e6;
+}
+
+.footer-section h6 {
+    color: #f39c12; 
+    letter-spacing: 0.5px;
+}
+
+.map-container {
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+[data-bs-theme="dark"] .map-container {
+    filter: grayscale(1) invert(1) contrast(1.2);
+}
+
+[data-bs-theme="light"] .map-container {
+    filter: none;
+    border: 1px solid #dee2e6;
+}
+
+.map-container:hover {
+    filter: none;
+    opacity: 1;
+}
+
+.social-links .btn {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: all 0.2s ease;
+}
+
+[data-bs-theme="light"] .footer-section {
+    background-color: #e9ecef !important; 
+    color: #343a40 !important;      
+    border-top: 1px solid #ced4da;
+}
+
+[data-bs-theme="light"] .map-container {
+    filter: brightness(0.95);
+    border: 1px solid #ced4da;
+}
+
+[data-bs-theme="light"] .footer-section h6 {
+    color: #d35400; 
+}
+
+[data-bs-theme="light"] .footer-section .opacity-75 {
+    opacity: 0.85 !important;
+    color: #495057;
+}
+
+.x-small {
+    font-size: 0.75rem;
+}
+
+/* ===============================
 DROPDOWN
 ================================ */
 .dropdown-menu {

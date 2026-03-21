@@ -4,43 +4,25 @@ require_once("./init/init.php");
 $user = loggedInUser();
 
 // ==========================
-// 1. PAGE GROUPS
-// ==========================
-$logged_in_pages = [
-    'dashboard',
-    'profile',
-    'professor',
-    'professor/electrical',
-    'professor/cs',
-    'professor/mechanical',
-    'professor/optics',
-    'professor/civil',
-    'professor/electronics',
-    'professor/automotive',
-    'professor/tourism'
-];
-
-$non_logged_in_pages = ['login', 'register'];
-$admin_pages = ['user/list', 'user/create'];
-$logout_page = ['logout'];
-
-// ==========================
-// 2. ALL AVAILABLE PAGES
-// ==========================
-$available_pages = array_merge(
-    $logged_in_pages,
-    $non_logged_in_pages,
-    $admin_pages,
-    $logout_page
-);
-
-// ==========================
-// 3. GET PAGE
+// 1. GET PAGE FIRST (VERY IMPORTANT)
 // ==========================
 $page = strtolower(trim($_GET['page'] ?? 'dashboard'));
 
 // ==========================
-// 4. SECURITY (FIXED)
+// 2. PAGE GROUPS
+// ==========================
+$logged_in_pages = [
+    'dashboard',
+    'profile',
+    'professor'
+];
+
+$non_logged_in_pages = ['login', 'register'];
+$admin_pages = ['user/list', 'user/create', 'professor/create_professor'];
+$logout_page = ['logout'];
+
+// ==========================
+// 3. SECURITY
 // ==========================
 
 // 🔒 Require login
@@ -55,7 +37,7 @@ if (in_array($page, $non_logged_in_pages) && !empty($user)) {
     exit();
 }
 
-// 🔒 Admin only pages (FIXED SAFELY)
+// 🔒 Admin only pages
 if (in_array($page, $admin_pages)) {
     if (empty($user) || ($user->level ?? '') !== 'admin') {
         header('Location: ?page=dashboard');
@@ -64,8 +46,39 @@ if (in_array($page, $admin_pages)) {
 }
 
 // ==========================
-// 5. RENDER
+// 4. HANDLE DYNAMIC ROUTES (AFTER SECURITY)
 // ==========================
+if (strpos($page, 'professor/') === 0) {
+
+    $sub = explode('/', $page)[1] ?? '';
+    $file = "./pages/professor/$sub.php";
+
+    include("./includes/header.inc.php");
+    include("./includes/navbar.inc.php");
+
+    if (file_exists($file)) {
+        include $file;
+    } else {
+        echo "<div class='container py-5 text-center'>
+                <h1 class='display-1 fw-bold text-secondary'>404</h1>
+                <p class='lead'>Page not found</p>
+              </div>";
+    }
+
+    include("./includes/footer.inc.php");
+    exit(); // 🔥 VERY IMPORTANT
+}
+
+// ==========================
+// 5. NORMAL ROUTING
+// ==========================
+$available_pages = array_merge(
+    $logged_in_pages,
+    $non_logged_in_pages,
+    $admin_pages,
+    $logout_page
+);
+
 include("./includes/header.inc.php");
 include("./includes/navbar.inc.php");
 

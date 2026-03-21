@@ -19,6 +19,6 @@
         </div>
     <?php endif; ?>
 
-    <div id="electrical-root"></div>
+    <div id="automotive-root"></div>
 
 </main>

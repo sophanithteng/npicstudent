@@ -18,7 +18,7 @@ async function loadProfessorContent() {
 
     const categories = [
         { img: "assets/images/electrical_icon.png", text: "វិស្វកម្មអគ្គិសនី", link: "professor/electrical" },
-        { img: "assets/images/computer_science_icon.png", text: "វិទ្យាសាស្ត្រកុំព្យូទ័រ", link: "professor/cs", highlight: true },
+        { img: "assets/images/computer_science_icon.png", text: "វិទ្យាសាស្ត្រកុំព្យូទ័រ", link: "professor/computer-science", highlight: true },
         { img: "assets/images/mechanical_icon.png", text: "វិស្វកម្មមេកានិក", link: "professor/mechanical" },
         { img: "assets/images/optics_icon.png", text: "វិទ្យាសាស្ត្រអុបទិក", link: "professor/optics" },
         { img: "assets/images/civil_icon.png", text: "វិស្វកម្មសំណង់ស៊ីវិលនិងស្ថាបត្យកម្ម", link: "professor/civil" },
@@ -27,7 +27,6 @@ async function loadProfessorContent() {
         { img: "assets/images/tourism_icon.png", text: "ទេសចរណ៍និងបដិសណ្ឋារកិច្ច", link: "professor/tourism" }
     ];
 
-    // 2. Load Actual Content
     productContainer.innerHTML = `
     <div class="section-header mb-4 text-center">
         <h3 class="fw-bold">ជំនាញសិក្សានៅសាកលវិទ្យាល័យ</h3>
@@ -50,7 +49,6 @@ async function loadProfessorContent() {
     </div>`;
 }
 
-// 3. Router Logic
 document.addEventListener("DOMContentLoaded", () => {
     const params = new URLSearchParams(window.location.search);
     const page = params.get("page");

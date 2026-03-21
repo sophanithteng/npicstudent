@@ -10,15 +10,15 @@
             </div>
 
             <div class="col-12 col-md-5 text-center text-md-end">
-                <a href="./?page=professor/list_professor"
+                <a href="./?page=professor/create_professor"
                     class="btn btn-primary px-4 py-2 rounded-pill shadow-sm d-inline-flex align-items-center">
                     <i class="bi bi-person-plus-fill me-2"></i>
-                    <span>Professor Management</span>
+                    <span>Add New Professor</span>
                 </a>
             </div>
         </div>
     <?php endif; ?>
 
-    <div id="electrical-root"></div>
+    <div id="mech-root"></div>
 
 </main>
