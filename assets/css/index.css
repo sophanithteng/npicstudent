@@ -31,7 +31,7 @@ ROOT VARIABLES
 }
 
 /* ===============================
-DARK MODE (FIXED)
+DARK MODE 
 ================================ */
 [data-bs-theme="dark"],
 body.dark-mode {
@@ -111,14 +111,12 @@ CARDS
     color: var(--text-color);
 }
 
-/* FORCE FULL VISIBILITY IN DARK MODE */
 body.dark-mode .card p,
 [data-bs-theme="dark"] .card p {
     color: #ffffff !important;
     opacity: 1 !important;
 }
 
-/* Also fix any text inside cards */
 body.dark-mode .card *,
 [data-bs-theme="dark"] .card * {
     color: #ffffff !important;
@@ -152,9 +150,77 @@ CARD CONTENT
     margin: 0;
     font-size: 15px;
     font-weight: 500;
-
-    /* ✅ FIX TEXT VISIBILITY */
     color: inherit;
+}
+
+/* ===============================
+LIGHT MODE FORM ENHANCEMENT
+================================ */
+
+/* inputs, selects, textarea */
+[data-bs-theme="light"] input,
+[data-bs-theme="light"] select,
+[data-bs-theme="light"] textarea {
+
+
+background: rgba(255, 255, 255, 0.85) !important;
+
+/* glass effect */
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+
+border: 1px solid rgba(0, 0, 0, 0.08) !important;
+border-radius: 14px;
+
+padding: 10px 14px;
+
+/* soft shadow */
+box-shadow: 
+    0 4px 10px rgba(0, 0, 0, 0.05);
+
+transition: all 0.25s ease;
+
+
+}
+
+/* focus state */
+[data-bs-theme="light"] input:focus,
+[data-bs-theme="light"] select:focus,
+[data-bs-theme="light"] textarea:focus {
+
+
+outline: none;
+border-color: #10b981 !important;
+
+box-shadow: 
+    0 0 0 3px rgba(16, 185, 129, 0.2),
+    0 6px 15px rgba(0, 0, 0, 0.06);
+
+
+}
+
+/* placeholder styling */
+[data-bs-theme="light"] input::placeholder,
+[data-bs-theme="light"] textarea::placeholder {
+color: #94a3b8;
+}
+
+/* labels */
+[data-bs-theme="light"] label {
+color: #2c3e50;
+font-weight: 500;
+margin-bottom: 6px;
+}
+
+/* select arrow fix (clean look) */
+[data-bs-theme="light"] select {
+appearance: none;
+background-image: none;
+}
+
+/* input group spacing (optional nice layout) */
+[data-bs-theme="light"] .form-control {
+background: rgba(255,255,255,0.85) !important;
 }
 
 /* ===============================
@@ -182,7 +248,6 @@ CAROUSEL
     border-radius: var(--radius);
 }
 
-/* Overlay */
 .sk-carousel::before {
     content: "";
     position: absolute;
@@ -518,3 +583,33 @@ RESPONSIVE
         margin-top: 10px;
     }
 }
+
+/* ===============================
+BACKGROUND OVERRIDE 
+================================ */
+
+[data-bs-theme="light"] body {
+    background-image: radial-gradient(
+        125% 125% at 50% 90%,
+        #ffffff 40%,
+        #10b981 100%
+    ) !important;
+
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+[data-bs-theme="dark"] body,
+body.dark-mode {
+    background-image:
+        radial-gradient(
+            80% 60% at 50% 0%,
+            rgba(120, 180, 255, 0.25),
+            transparent 70%
+        ),
+        rgb(0, 0, 0) !important;
+
+    background-repeat: no-repeat;
+}
+
+

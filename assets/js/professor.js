@@ -48,12 +48,3 @@ async function loadProfessorContent() {
         `).join('')}
     </div>`;
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-    const params = new URLSearchParams(window.location.search);
-    const page = params.get("page");
-
-    if (page === "professor") {
-        loadDashboardContent();
-    }
-});

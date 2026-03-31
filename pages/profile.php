@@ -63,7 +63,7 @@ if (isset($_POST['deletepicture'])) {
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-body text-center p-4">
                     <h4 class="card-title mb-4">Profile Picture</h4>
-                    <form method="post" action="./?page=profile" enctype="multipart/form-data" onsubmit="validateUpload(event)">
+                    <form method="post" action="./?page=profile" enctype="multipart/form-data" onsubmit="window.validateProfileUpload(event)">
                         <div class="mb-4">
                             <input name="picture" type="file" id="profileUpload" hidden accept="image/png, image/jpeg">
                             <label role="button" for="profileUpload" class="position-relative d-inline-block">
@@ -77,7 +77,7 @@ if (isset($_POST['deletepicture'])) {
                         <div class="d-grid gap-2 d-md-block">
                             <button type="submit" class="btn btn-success px-4">Upload Picture</button>
 
-                            <button type="button" class="btn btn-outline-danger px-4" onclick="confirmDelete(event)">
+                            <button type="button" class="btn btn-outline-danger px-4" onclick="window.confirmProfileDelete(event)">
                                 Delete
                             </button>
                         </div>
@@ -120,3 +120,5 @@ if (isset($_POST['deletepicture'])) {
         </div>
     </div>
 </div>
+
+<script src="./assets/js/profile.js"></script>

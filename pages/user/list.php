@@ -82,7 +82,7 @@ if (isset($_POST['btnSaveUpdate'])) {
             <div class="ms-auto d-flex gap-2">
                 <button type="button" 
                     class="btn btn-sm btn-outline-primary rounded-pill px-3"
-                    onclick="openEditModal(this)"
+                    onclick="window.openUserEditModal(this)"
                     data-id="<?php echo $row->id; ?>"
                     data-name="<?php echo htmlspecialchars($row->name); ?>"
                     data-username="<?php echo htmlspecialchars($row->username); ?>"
@@ -91,7 +91,7 @@ if (isset($_POST['btnSaveUpdate'])) {
                     <i class="bi bi-pencil me-1"></i> Edit
                 </button>
 
-                <button class="btn btn-sm btn-outline-danger rounded-pill px-3" onclick="confirmDelete(<?php echo $row->id; ?>)">
+                <button class="btn btn-sm btn-outline-danger rounded-pill px-3" onclick="window.confirmUserDelete(<?php echo $row->id; ?>)">
                     <i class="bi bi-trash me-1"></i> Delete
                 </button>
             </div>
@@ -113,7 +113,7 @@ if (isset($_POST['btnSaveUpdate'])) {
                             <label for="edit_photo" class="position-absolute bottom-0 end-0 bg-primary text-white rounded-circle p-2" style="cursor: pointer;">
                                 <i class="bi bi-camera-fill"></i>
                             </label>
-                            <input type="file" name="profile_pic" id="edit_photo" hidden onchange="previewImage(this)">
+                            <input type="file" name="profile_pic" id="edit_photo" hidden onchange="window.previewUserImage(this)">
                         </div>
                     </div>
 
@@ -148,6 +148,8 @@ if (isset($_POST['btnSaveUpdate'])) {
         </div>
     </div>
 </div>
+
+<script src="./assets/js/list.js"></script>
 
 <style>
     .transition-hover {

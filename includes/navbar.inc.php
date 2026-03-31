@@ -34,7 +34,7 @@
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link active" href="<?php echo $baseUrl ?>?page=dashboard">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo $baseUrl ?>?page=professor">Professor</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?php echo $baseUrl ?>?page=student">Student</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo $baseUrl ?>?page=registration">Registration</a></li>
 
                     <?php if (isAdmin()) { ?>
                         <li class="nav-item">

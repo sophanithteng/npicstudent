@@ -64,7 +64,7 @@ function isUserHasPassword($passwd)
     $query = $db->prepare(
         "SELECT * FROM tbl_users WHERE id = ? AND passwd = ?"
     );
-    $query->bind_param('ss', $user->id, $passwd);
+    $query->bind_param('is', $user->id, $passwd);
     $query->execute();
     $result = $query->get_result();
     if ($result->num_rows) {
@@ -80,7 +80,7 @@ function setUserNewPassowrd($passwd)
     $query = $db->prepare(
         "UPDATE tbl_users SET passwd = ? WHERE id = ?"
     );
-    $query->bind_param('ss',  $passwd, $user->id);
+    $query->bind_param('si',  $passwd, $user->id);
     $query->execute();
     if ($db->affected_rows) {
         return true;
@@ -118,7 +118,7 @@ function deleteProfilepicture()
         unlink($user->profile_pic);
 
         $query = $db->prepare('UPDATE tbl_users SET profile_pic = NULL WHERE id = ?');
-        $query->bind_param('d', $user->id);
+        $query->bind_param('i', $user->id);
         $query->execute();
         if ($db->affected_rows) {
             return true;

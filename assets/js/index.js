@@ -178,8 +178,7 @@ async function loadDashboardContent() {
                     </div>
                 </div>
             </div>
-        </div>
-        `; ``
+        </div>`;
 
         productContainer.innerHTML += `
         <hr class="my-5">

@@ -1,4 +1,4 @@
-function openEditModal(btn) {
+window.openUserEditModal = function(btn) {
 
     document.getElementById('edit_id').value = btn.getAttribute('data-id');
     document.getElementById('edit_name').value = btn.getAttribute('data-name');
@@ -16,7 +16,7 @@ function openEditModal(btn) {
     myModal.show();
 }
 
-function previewImage(input) {
+window.previewUserImage = function(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
@@ -26,7 +26,7 @@ function previewImage(input) {
     }
 }
 
-function confirmDelete(id) {
+window.confirmUserDelete = function(id) {
     Swal.fire({
         title: 'Are you sure?',
         text: "This user will be permanently removed!",

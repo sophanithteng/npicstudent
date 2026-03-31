@@ -138,7 +138,6 @@ function deleteProfessor($id)
 {
     global $db;
 
-    // 🔹 Get old image
     $query = $db->prepare('SELECT pro_image FROM tbl_professor WHERE pro_id = ?');
     $query->bind_param('i', $id);
     $query->execute();
@@ -146,7 +145,7 @@ function deleteProfessor($id)
     $data = $result->fetch_object();
 
     if ($data) {
-        // 🔥 Delete image file
+
         if (
             !empty($data->pro_image) &&
             $data->pro_image !== 'assets/professor_images/emptyuser.png' &&
@@ -155,7 +154,6 @@ function deleteProfessor($id)
             unlink($data->pro_image);
         }
 
-        // 🔥 Delete record
         $delete = $db->prepare('DELETE FROM tbl_professor WHERE pro_id = ?');
         $delete->bind_param('i', $id);
         $delete->execute();
@@ -170,27 +168,22 @@ function editProfessor($id, $data, $file = null)
 {
     global $db;
 
-    // 🔹 Handle image upload
     if ($file && $file['error'] === UPLOAD_ERR_OK) {
 
-        // 🔥 Get old image
         $oldQuery = $db->prepare("SELECT pro_image FROM tbl_professor WHERE pro_id = ?");
         $oldQuery->bind_param("i", $id);
         $oldQuery->execute();
-        $oldImage = $oldQuery->get_result()->fetch_object()->pro_image;
+        $res = $oldQuery->get_result()->fetch_object();
+        $oldImage = $res ? $res->pro_image : '';
 
-        // 🔥 Delete old image
-        if (
-            !empty($oldImage) &&
-            $oldImage !== 'assets/professor_images/emptyuser.png' &&
-            file_exists($oldImage)
-        ) {
+        if (!empty($oldImage) && strpos($oldImage, 'emptyuser.png') === false && file_exists($oldImage)) {
             unlink($oldImage);
         }
 
-        // 🔥 Upload new image
-        $targetDir = "assets/images/";
-        $fileName = "profile_" . time() . "_" . basename($file["name"]);
+        $targetDir = "assets/professor_images/";
+        if (!is_dir($targetDir)) { mkdir($targetDir, 0777, true); } 
+        
+        $fileName = "pro_" . time() . "_" . basename($file["name"]);
         $targetFile = $targetDir . $fileName;
 
         if (move_uploaded_file($file["tmp_name"], $targetFile)) {
@@ -198,42 +191,58 @@ function editProfessor($id, $data, $file = null)
         }
     }
 
-    // 🔹 UPDATE QUERY
     if (isset($data['pro_image'])) {
-
         $sql = "UPDATE tbl_professor 
                 SET pro_name = ?, pro_designation = ?, pro_description = ?, dept_id = ?, pro_image = ?
                 WHERE pro_id = ?";
-
         $stmt = $db->prepare($sql);
-        $stmt->bind_param(
-            "sssisi",
-            $data['pro_name'],
-            $data['pro_designation'],
-            $data['pro_description'],
-            $data['dept_id'],
-            $data['pro_image'],
+        $stmt->bind_param("sssisi", 
+            $data['pro_name'], 
+            $data['pro_designation'], 
+            $data['pro_description'], 
+            $data['dept_id'], 
+            $data['pro_image'], 
             $id
         );
-
     } else {
-
         $sql = "UPDATE tbl_professor 
                 SET pro_name = ?, pro_designation = ?, pro_description = ?, dept_id = ?
                 WHERE pro_id = ?";
-
         $stmt = $db->prepare($sql);
-        $stmt->bind_param(
-            "sssii",
-            $data['pro_name'],
-            $data['pro_designation'],
-            $data['pro_description'],
-            $data['dept_id'],
+        $stmt->bind_param("sssii", 
+            $data['pro_name'], 
+            $data['pro_designation'], 
+            $data['pro_description'], 
+            $data['dept_id'], 
             $id
         );
     }
 
     $stmt->execute();
+    return $stmt->errno === 0; 
+}
 
-    return $stmt->affected_rows >= 0;
+function getProfessorById($id)
+{
+    global $db;
+
+    $stmt = $db->prepare("SELECT * FROM tbl_professor WHERE pro_id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+
+    return $stmt->get_result()->fetch_assoc();
+}
+
+function getDepartments()
+{
+    global $db;
+    
+    $query = "SELECT * FROM tbl_department ORDER BY dept_name ASC";
+    $result = $db->query($query);
+    
+    if (!$result) {
+        return false;
+    }
+    
+    return $result;
 }

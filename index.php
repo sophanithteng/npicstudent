@@ -14,7 +14,9 @@ $page = strtolower(trim($_GET['page'] ?? 'dashboard'));
 $logged_in_pages = [
     'dashboard',
     'profile',
-    'professor'
+    'professor',
+    'registration',
+    'payment',
 ];
 
 $non_logged_in_pages = ['login', 'register'];

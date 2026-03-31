@@ -34,9 +34,9 @@ if (profileInput) {
 }
 
 // --- 2. UPDATE CONFIRMATION (SweetAlert2) ---
-function validateUpload(event) {
-    event.preventDefault(); 
-    
+window.validateProfileUpload = function(event) {
+    event.preventDefault();
+
     const fileInput = document.getElementById("profileUpload");
     if (!fileInput) return; // Safety check
 
@@ -73,7 +73,7 @@ function validateUpload(event) {
 }
 
 // --- 3. DELETE CONFIRMATION (SweetAlert2) ---
-function confirmDelete(event) {
+window.confirmProfileDelete = function(event) {
     event.preventDefault();
 
     Swal.fire({

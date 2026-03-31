@@ -10,10 +10,10 @@
             </div>
 
             <div class="col-12 col-md-5 text-center text-md-end">
-                <a href="./?page=professor/create_professor"
+                <a href="./?page=professor/list_professor"
                     class="btn btn-primary px-4 py-2 rounded-pill shadow-sm d-inline-flex align-items-center">
                     <i class="bi bi-person-plus-fill me-2"></i>
-                    <span>Add New Professor</span>
+                    <span>Professor Management</span>
                 </a>
             </div>
         </div>

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="assets/css/navbar.css">
     <link rel="stylesheet" href="assets/css/carousel.css">
+    <link rel="stylesheet" href="assets/css/registration.css">
     <script>
         const baseUrl = "<?php echo $baseUrl; ?>";
         const theme = localStorage.getItem('theme') || 'light';
