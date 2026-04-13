@@ -175,8 +175,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <button type="submit" class="btn btn-primary btn-lg py-3 fw-bold shadow-sm">
                             Save Professor Profile
                         </button>
-                        <a href="?page=professor/electrical" class="btn btn-link btn-sm text-decoration-none text-muted mt-2">
-                            Back to the Electrical
+                    <a href="?page=professor/list_professor" class="btn btn-link btn-sm text-decoration-none text-muted mt-2">
+                        Back to Professor List
                         </a>
                     </div>
                 </form>

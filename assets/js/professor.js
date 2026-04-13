@@ -2,7 +2,6 @@ async function loadProfessorContent() {
     const productContainer = document.getElementById('professor-root');
     if (!productContainer) return;
 
-    // 1. Show Skeleton Loaders
 
     productContainer.innerHTML = `<div class="card-grid">
             ${Array(8).fill(0).map(() => `
@@ -12,8 +11,6 @@ async function loadProfessorContent() {
                 </div>`).join('')}
         </div>`;
 
-
-    // Simulate network delay (1 second)
     await new Promise(r => setTimeout(r, 2000));
 
     const categories = [

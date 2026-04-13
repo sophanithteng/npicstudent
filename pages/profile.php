@@ -24,7 +24,7 @@ if (isset($_POST['changePasswd'])) {
     }
 
     if (empty($oldPasswdErr) && empty($newPasswdErr)) {
-        if (setUserNewPassowrd($newPasswd)) {
+        if (setUserNewPassword($newPasswd)) {
             // Redirect to logout to force re-login with new password
             header('Location: ./?page=logout');
             exit;

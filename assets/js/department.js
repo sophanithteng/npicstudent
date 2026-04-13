@@ -78,7 +78,6 @@ async function loadDepartmentContent(department, titleKh, titleEn, containerId) 
 
         const professors = await response.json();
 
-        // 🔹 No data
         if (!Array.isArray(professors) || professors.length === 0) {
             container.innerHTML = `
                 <div class="section-header mb-4 text-center">
@@ -90,7 +89,6 @@ async function loadDepartmentContent(department, titleKh, titleEn, containerId) 
             return;
         }
 
-        // 🔹 Render Cards
         container.innerHTML = `
             <div class="section-header mb-4 text-center">
                 <h3 class="fw-bold">${titleKh}</h3>

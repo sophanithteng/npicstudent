@@ -80,7 +80,7 @@ if (isset($_GET['national_id'])) {
             <div class="text-center mb-4">
                 <div style="position:relative; display:inline-block;">
                     <label for="profileUpload" style="cursor:pointer;">
-                        <img src="<?= !empty($student['profile_pic']) ? '../uploads/' . $student['profile_pic'] : './assets/images/emptyuser.png' ?>"
+                        <img src="<?= !empty($student['profile_pic']) && $student['profile_pic'] !== 'default.png' ? './assets/images/' . $student['profile_pic'] : './assets/images/emptyuser.png' ?>"
                             id="preview"
                             class="rounded-circle border shadow"
                             style="width:120px;height:120px;object-fit:cover;">

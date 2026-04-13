@@ -1,6 +1,3 @@
-// ==========================
-// OPEN EDIT MODAL (GLOBAL)
-// ==========================
 window.openProfessorEditModal = function (btn) {
 
     document.getElementById('edit_id').value = btn.getAttribute('data-id');
@@ -23,10 +20,6 @@ window.openProfessorEditModal = function (btn) {
     myModal.show();
 };
 
-
-// ==========================
-// IMAGE PREVIEW
-// ==========================
 window.previewProfessorImage = function (input) {
     if (input.files && input.files[0]) {
         const reader = new FileReader();
@@ -39,10 +32,6 @@ window.previewProfessorImage = function (input) {
     }
 };
 
-
-// ==========================
-// DELETE CONFIRM (GLOBAL)
-// ==========================
 window.confirmProfessorDelete = function (id) {
     Swal.fire({
         title: 'Are you sure?',
@@ -54,7 +43,7 @@ window.confirmProfessorDelete = function (id) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = "?page=professor/list&action=delete&id=" + id;
+            window.location.href = "?page=professor/list_professor&action=delete&id=" + id;
         }
     });
 };

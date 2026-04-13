@@ -18,10 +18,23 @@ document.addEventListener('DOMContentLoaded', () => {
     else if (page && page.startsWith("professor/")) {
         const slug = page.split("/")[1];
 
-        const dep = departments.find(d => d.slug === slug);
+        // Ensure the departments array is loaded before filtering
+        if (typeof departments !== 'undefined') {
+            // Map PHP file names to their respective JS slugs if they differ
+            const slugMap = {
+                'optics': 'optical',
+                'civil': 'civil-architecture',
+                'electronics': 'electronics-telecom',
+                'tourism': 'tourism-hospitality'
+            };
+            const targetSlug = slugMap[slug] || slug;
+            const dep = departments.find(d => d.slug === targetSlug);
 
-        if (dep && typeof loadDepartmentContent === 'function') {
-            loadDepartmentContent(dep.slug, dep.kh, dep.en, dep.id);
+            if (dep && typeof loadDepartmentContent === 'function') {
+                loadDepartmentContent(dep.slug, dep.kh, dep.en, dep.id);
+            }
+        } else {
+            console.warn("departments array is not defined. Make sure department.js is included on this page.");
         }
     }
 
@@ -103,17 +116,17 @@ async function loadDashboardContent() {
             {
                 img: "assets/images/optics_icon.png",
                 text: "វិទ្យាសាស្ត្រអុបទិក",
-                link: "?page=professor/optical"
+                link: "?page=professor/optics"
             },
             {
                 img: "assets/images/civil_icon.png",
                 text: "វិស្វកម្មសំណង់ស៊ីវិលនិងស្ថាបត្យកម្ម",
-                link: "?page=professor/civil-architecture"
+                link: "?page=professor/civil"
             },
             {
                 img: "assets/images/electronics_icon.png",
                 text: "វិស្វកម្មអេឡិចត្រូនិកនិងទូរគមនាគមន៍",
-                link: "?page=professor/electronics-telecom"
+                link: "?page=professor/electronics"
             },
             {
                 img: "assets/images/automotive_icon.png",
@@ -123,7 +136,7 @@ async function loadDashboardContent() {
             {
                 img: "assets/images/tourism_icon.png",
                 text: "ទេសចរណ៍និងបដិសណ្ឋារកិច្ច",
-                link: "?page=professor/tourism-hospitality"
+                link: "?page=professor/tourism"
             }
         ];
 

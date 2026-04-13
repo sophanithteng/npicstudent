@@ -61,6 +61,8 @@ function isUserHasPassword($passwd)
 {
     global $db;
     $user = loggedInUser();
+    if (!$user) return false;
+
     $query = $db->prepare(
         "SELECT * FROM tbl_users WHERE id = ? AND passwd = ?"
     );
@@ -73,10 +75,12 @@ function isUserHasPassword($passwd)
     return false;
 }
 
-function setUserNewPassowrd($passwd)
+function setUserNewPassword($passwd)
 {
     global $db;
     $user = loggedInUser();
+    if (!$user) return false;
+
     $query = $db->prepare(
         "UPDATE tbl_users SET passwd = ? WHERE id = ?"
     );
@@ -92,6 +96,7 @@ function changeProfilepicture($picture)
 {
     global $db;
     $user = loggedInUser();
+    if (!$user) return false;
 
     try {
         $picture_path = uploadpicture($picture, $user);
@@ -114,6 +119,8 @@ function deleteProfilepicture()
 {
     global $db;
     $user = loggedInUser();
+    if (!$user) return false;
+
     if ($user->profile_pic) {
         unlink($user->profile_pic);
 
@@ -176,5 +183,5 @@ function uploadpicture($file, $user)
 function isAdmin()
 {
     $user = loggedInUser();
-    return $user && $user->level === 'admin';
+    return $user && isset($user->level) && $user->level === 'admin';
 }
